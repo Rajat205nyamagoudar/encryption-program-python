@@ -1,0 +1,39 @@
+import random
+import string
+
+# Define available characters: space, punctuation, digits, and ASCII letters
+chars = " " + string.punctuation + string.digits + string.ascii_letters
+chars = list(chars)
+key = chars.copy()
+
+# Shuffle the key to create a unique substitution mapping
+random.shuffle(key)
+
+# ----------------- ENCRYPTION -----------------
+plain_text = input("Enter a message to encrypt: ")
+cipher_text = ""
+
+for letter in plain_text:
+    if letter in chars:
+        index = chars.index(letter)
+        cipher_text += key[index]
+    else:
+        # Keep character as-is if it's not in the character set (e.g., emojis/unicode)
+        cipher_text += letter
+
+print(f"Original message:  {plain_text}")
+print(f"Encrypted message: {cipher_text}\n")
+
+# ----------------- DECRYPTION -----------------
+cipher_text = input("Enter a message to decrypt: ")
+plain_text = ""
+
+for letter in cipher_text:
+    if letter in key:
+        index = key.index(letter)
+        plain_text += chars[index]
+    else:
+        plain_text += letter
+
+print(f"Encrypted message: {cipher_text}")
+print(f"Original message:  {plain_text}")
